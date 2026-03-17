@@ -95,3 +95,12 @@ if uploaded_file:
             
     except Exception as e:
         st.error(f"Error: {e}")
+        def calculate_referral(row):
+    # আপনার দেওয়া লজিক: ২৫% এর বেশি ডিসকাউন্ট হলে ০
+    if row['Discount_Pct'] > 25:
+        return 0.0
+    else:
+        # ব্যালেন্স পার্সেন্টেজ লজিক: (২৫% - ডিসকাউন্ট %)
+        # যেমন: ২০% ডিসকাউন্ট দিলে সে পাবে (২৫-২০) = ৫% নেট এমাউন্টের ওপর
+        balance_pct = (25 - row['Discount_Pct']) / 100
+        return row['Net Amount'] * balance_pct
